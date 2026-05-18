@@ -1,0 +1,70 @@
+.scene-container {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: radial-gradient(circle at center, var(--world-bg-inner) 0%, var(--bg-base) 100%);
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease-in-out, background 0.45s ease;
+
+    &.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+.btn-back {
+    position: absolute;
+    top: 2rem; left: 2rem; z-index: 101; padding: 0.75rem 1.5rem;
+    background: var(--surface-2);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    font-weight: bold;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    font-family: 'Rajdhani', sans-serif;
+    text-transform: uppercase;
+
+    &:hover {
+        background: var(--teto-red);
+        border-color: var(--teto-red);
+        color: #fff;
+    }
+}
+
+.canvas-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.webgl-fallback {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: radial-gradient(circle at center, var(--world-bg-inner) 0%, var(--bg-base) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+}
+
+.fallback-content {
+    text-align: center;
+    padding: 2rem;
+    max-width: 480px;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+
+    .fallback-icon { font-size: 3rem; margin-bottom: 1rem; }
+    h2 { font-family: 'Rajdhani', sans-serif; font-size: 2rem; margin-bottom: 1rem; color: var(--teto-red); }
+    p { color: #94a3b8; line-height: 1.6; margin-bottom: 2rem; }
+}
+
+.btn-fallback {
+    position: static;
+    display: inline-block;
+}

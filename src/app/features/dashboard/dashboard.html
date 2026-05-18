@@ -1,0 +1,399 @@
+<canvas #connectionCanvas id="connection-canvas" aria-hidden="true"></canvas>
+
+<div class="dashboard-container" [class.zoom-out]="isZoomedOut()">
+    <div class="theme-switcher" [class.animation-done]="isIntroFinished()"
+        [class.is-virtualized]="isIntroFinished() && !isReturningVisit">
+        <button class="theme-dot theme-dot--teto" [class.active]="currentTheme() === 'default'"
+            (click)="setTheme('default')" aria-label="Tema Kasane Teto"></button>
+        <button class="theme-dot theme-dot--suzuka" [class.active]="currentTheme() === 'suzuka'"
+            (click)="setTheme('suzuka')" aria-label="Tema Silence Suzuka"></button>
+        <button class="theme-dot theme-dot--vega" [class.active]="currentTheme() === 'vega'" (click)="setTheme('vega')"
+            aria-label="Tema Admire Vega"></button>
+        <button class="theme-dot theme-dot--manhattan" [class.active]="currentTheme() === 'manhattan'"
+            (click)="setTheme('manhattan')" aria-label="Tema Manhattan Cafe"></button>
+
+        <div class="lang-switcher">
+            <button class="lang-btn" [class.active]="currentLang() === 'es'" (click)="setLanguage('es')">ES</button>
+            <button class="lang-btn" [class.active]="currentLang() === 'en'" (click)="setLanguage('en')">EN</button>
+        </div>
+
+        <div id="danger-zone-el" class="danger-zone" [class.animation-done]="isIntroFinished()"
+            [class.is-virtualized]="isIntroFinished() && !isReturningVisit" (click)="onDangerClick($event)"
+            [attr.aria-label]="'DANGER.ARIA' | translate">
+            <div class="danger-box">
+                <div class="danger-btn">
+                    <div class="danger-btn-shine"></div>
+                </div>
+                <div class="danger-placard" [innerHTML]="'DANGER.PLACARD' | translate"></div>
+            </div>
+        </div>
+    </div>
+    <div class="bento-container">
+
+        <!-- TARJETA 1: DATOS PERSONALES -->
+        <div class="bento-item item-profile" id="card-1" [class.animation-done]="revealedCards()['card-1']"
+            [class.is-virtualized]="virtualizedCards()['card-1']" [class.float-anim]="isIntroFinished()">
+            <h2 class="section-title">{{ 'PERSONAL.TITLE' | translate }}</h2>
+
+            <div class="profile-header">
+                <h1>JOSÉ RAÚL ALPRESA LOBÓN</h1>
+                <div class="profile-role-row">
+                    <h2>{{ 'PERSONAL.ROLE' | translate }}</h2>
+                    <p class="profile-stack">{{ 'PERSONAL.STACK' | translate }}</p>
+                </div>
+            </div>
+
+            <p class="profile-desc">{{ 'PERSONAL.DESC' | translate }}</p>
+
+            <div class="profile-links">
+                <div class="profile-chip">
+                    <span class="chip-icon-wrap">
+                        <svg class="chip-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path
+                                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z" />
+                        </svg>
+                    </span>
+                    <span>{{ 'PERSONAL.LOCATION' | translate }}</span>
+                </div>
+                <a class="profile-chip" href="tel:+34674851761">
+                    <span class="chip-icon-wrap">
+                        <svg class="chip-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path
+                                d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                        </svg>
+                    </span>
+                    <span>+34 674 851 761</span>
+                </a>
+                <a class="profile-chip" href="mailto:raul203al@gmail.com">
+                    <span class="chip-icon-wrap">
+                        <svg class="chip-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path
+                                d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z" />
+                        </svg>
+                    </span>
+                    <span>raul203al&#64;gmail.com</span>
+                </a>
+                <a class="profile-chip" href="https://github.com/raul203al" target="_blank">
+                    <span class="chip-icon-wrap">
+                        <i class="devicon-github-original chip-icon--dev"></i>
+                    </span>
+                    <span>github.com/raul203al</span>
+                </a>
+                <a class="profile-chip" href="https://linkedin.com/in/j-raul" target="_blank">
+                    <span class="chip-icon-wrap">
+                        <i class="devicon-linkedin-plain chip-icon--dev"></i>
+                    </span>
+                    <span>linkedin.com/in/j-raul</span>
+                </a>
+            </div>
+
+        </div>
+
+        <!-- TARJETA 2: EXPERIENCIA -->
+        <div class="bento-item item-experience" id="card-2" [class.animation-done]="revealedCards()['card-2']"
+            [class.is-virtualized]="virtualizedCards()['card-2']" [class.float-anim]="isIntroFinished()">
+            <h2 class="section-title">{{ 'EXP.TITLE' | translate }}</h2>
+
+            <div class="company-header">
+                INERTTIA
+                <div class="company-meta">
+                    <span class="company-role">Full-Stack Developer</span>
+                    <span>{{ 'EXP.PERIOD' | translate }}</span>
+                </div>
+            </div>
+
+            <div class="experience-cards">
+                <div class="project-card">
+                    <h4>{{ 'EXP.LOGISTICS.TITLE' | translate }}</h4>
+                    <ul>
+                        <li [innerHTML]="'EXP.LOGISTICS.L1' | translate"></li>
+                        <li [innerHTML]="'EXP.LOGISTICS.L2' | translate"></li>
+                        <li [innerHTML]="'EXP.LOGISTICS.L3' | translate"></li>
+                        <li [innerHTML]="'EXP.LOGISTICS.L4' | translate"></li>
+                    </ul>
+                </div>
+
+                <div class="project-card">
+                    <h4>{{ 'EXP.TPV.TITLE' | translate }}</h4>
+                    <ul>
+                        <li [innerHTML]="'EXP.TPV.L1' | translate"></li>
+                        <li [innerHTML]="'EXP.TPV.L2' | translate"></li>
+                        <li [innerHTML]="'EXP.TPV.L3' | translate"></li>
+                    </ul>
+                </div>
+
+                <div class="project-card">
+                    <h4>{{ 'EXP.FICHAJES.TITLE' | translate }}</h4>
+                    <ul>
+                        <li [innerHTML]="'EXP.FICHAJES.L1' | translate"></li>
+                        <li [innerHTML]="'EXP.FICHAJES.L2' | translate"></li>
+                        <li [innerHTML]="'EXP.FICHAJES.L3' | translate"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- TARJETA 3: STACK TECNOLÓGICO -->
+        <div class="bento-item item-skills" id="card-3" [class.animation-done]="revealedCards()['card-3']"
+            [class.is-virtualized]="virtualizedCards()['card-3']" [class.float-anim]="isIntroFinished()">
+            <h2 class="section-title">{{ 'SKILLS.TITLE' | translate }}</h2>
+
+            <div class="tech-categories">
+                <div class="tech-category">
+                    <div class="tech-category-title">{{ 'SKILLS.CAT1' | translate }}</div>
+                    <div class="tech-grid">
+                        @for (tech of frontendTech; track tech.name) {
+                        <div class="tech-pill" role="button" tabindex="0"
+                            [attr.aria-label]="('SKILLS.ARIA' | translate) + tech.name"
+                            (click)="goToWorld(tech.name, $event)" (mouseenter)="onTechPillHover($event)"
+                            (keydown)="onTechKeydown(tech.name, $event)">
+                            <i [class]="tech.icon" aria-hidden="true"></i> <span>{{ tech.name }}</span>
+                        </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="tech-row-2">
+                    <div class="tech-category">
+                        <div class="tech-category-title">{{ 'SKILLS.CAT2' | translate }}</div>
+                        <div class="tech-grid">
+                            @for (tech of backendTech; track tech.name) {
+                            <div class="tech-pill" role="button" tabindex="0"
+                                [attr.aria-label]="('SKILLS.ARIA' | translate) + tech.name"
+                                (click)="goToWorld(tech.name, $event)" (mouseenter)="onTechPillHover($event)"
+                                (keydown)="onTechKeydown(tech.name, $event)">
+                                <i [class]="tech.icon" aria-hidden="true"></i> <span>{{ tech.name }}</span>
+                            </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="tech-category">
+                        <div class="tech-category-title">{{ 'SKILLS.CAT3' | translate }}</div>
+                        <div class="tech-grid">
+                            @for (tech of devopsTech; track tech.name) {
+                            <div class="tech-pill" role="button" tabindex="0"
+                                [attr.aria-label]="('SKILLS.ARIA' | translate) + tech.name"
+                                (click)="goToWorld(tech.name, $event)" (mouseenter)="onTechPillHover($event)"
+                                (keydown)="onTechKeydown(tech.name, $event)">
+                                <i [class]="tech.icon" aria-hidden="true"></i> <span>{{ tech.name }}</span>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TARJETA 4: PROYECTOS PERSONALES -->
+        <div class="bento-item item-projects" id="card-4" [class.animation-done]="revealedCards()['card-4']"
+            [class.is-virtualized]="virtualizedCards()['card-4']" [class.float-anim]="isIntroFinished()">
+            <h2 class="section-title">{{ 'PROJECTS.TITLE' | translate }}</h2>
+
+            <div class="projects-grid">
+                <div class="project-box">
+                    <div class="project-box-header">
+                        <div>
+                            <h4>{{ 'PROJECTS.GIS.TITLE' | translate }}</h4>
+                        </div>
+                        <div class="status-badge status-progress">
+                            <span class="dot-progress"></span> {{ 'PROJECTS.STATUS_PROGRESS' | translate }}
+                        </div>
+                    </div>
+
+                    <a href="https://gis.ralpresa.dev" target="_blank" class="project-preview-link">
+                        <img src="/images/gis.png" alt="Visor GIS 3D" class="project-preview-img">
+                    </a>
+
+                    <div class="project-actions">
+                        <a href="https://github.com/raul203al/gis-front" target="_blank"
+                            class="project-btn project-btn--github">
+                            <i class="devicon-github-original"></i> GitHub
+                        </a>
+                        <a href="https://gis.ralpresa.dev" target="_blank" class="project-btn project-btn--demo">
+                            Demo →
+                        </a>
+                    </div>
+
+                    <div class="project-tech-stack" [attr.aria-label]="'PROJECTS.ARIA_STACK' | translate">
+                        <span class="tech-tag"><i class="devicon-angularjs-plain" aria-hidden="true"></i> Angular</span>
+                        <span class="tech-tag"><i class="devicon-javascript-plain" aria-hidden="true"></i>
+                            CesiumJS</span>
+                        <span class="tech-tag"><i class="devicon-docker-plain" aria-hidden="true"></i> Docker</span>
+                        <span class="tech-tag"><i class="devicon-linux-plain" aria-hidden="true"></i> VPS</span>
+                        <span class="tech-tag"><i class="devicon-traefik-plain" aria-hidden="true"></i> Traefik</span>
+                    </div>
+
+                    <ul>
+                        <li [innerHTML]="'PROJECTS.GIS.L1' | translate"></li>
+                        <li [innerHTML]="'PROJECTS.GIS.L2' | translate"></li>
+                        <li [innerHTML]="'PROJECTS.GIS.L3' | translate"></li>
+                        <li [innerHTML]="'PROJECTS.GIS.L4' | translate"></li>
+                    </ul>
+                </div>
+
+                <div class="project-box">
+                    <div class="project-box-header">
+                        <div>
+                            <h4>{{ 'PROJECTS.STREAMING.TITLE' | translate }}</h4>
+                            <a href="#" style="color: var(--text-muted); cursor: default;">{{
+                                'PROJECTS.STREAMING.URL_PENDING' | translate }}</a>
+                        </div>
+                        <div class="status-badge status-planning">
+                            <span class="dot-planning"></span> {{ 'PROJECTS.STATUS_PLANNING' | translate }}
+                        </div>
+                    </div>
+
+                    <div class="project-tech-stack" [attr.aria-label]="'PROJECTS.ARIA_STACK' | translate">
+                        <span class="tech-tag"><i class="devicon-angularjs-plain" aria-hidden="true"></i> Angular</span>
+                        <span class="tech-tag"><i class="devicon-spring-plain" aria-hidden="true"></i> Spring
+                            Boot</span>
+                        <span class="tech-tag"><i class="devicon-ionic-original" aria-hidden="true"></i> Ionic</span>
+                        <span class="tech-tag"><i class="devicon-capacitor-plain" aria-hidden="true"></i>
+                            Capacitor</span>
+                        <span class="tech-tag">⚡ WebSocket</span>
+                    </div>
+
+                    <svg viewBox="0 0 500 215" xmlns="http://www.w3.org/2000/svg" class="arch-svg arch-svg--inline">
+                        <defs>
+                            <filter id="node-glow" x="-30%" y="-30%" width="160%" height="160%">
+                                <feGaussianBlur stdDeviation="3" result="blur" />
+                                <feMerge>
+                                    <feMergeNode in="blur" />
+                                    <feMergeNode in="SourceGraphic" />
+                                </feMerge>
+                            </filter>
+                        </defs>
+
+                        <!-- Connection lines -->
+                        <path id="p-api" d="M 250 51  L 250 110" class="arch-line arch-line--api" />
+                        <path id="p-web" d="M 217 143 L 124 143" class="arch-line arch-line--sync" />
+                        <path id="p-mob" d="M 283 143 L 376 143" class="arch-line arch-line--sync" />
+                        <path id="p-cache" d="M 429 161 L 398 187" class="arch-line arch-line--cache" />
+
+                        <!-- Audio chunk paths (Spring Boot → Web App / Mobile App) -->
+                        <path id="pi-aw" d="M 200 51 C 130 80 63 107 63 125" class="arch-line arch-line--audio" />
+                        <path id="pi-am" d="M 300 51 C 370 80 437 107 437 125" class="arch-line arch-line--audio" />
+
+                        <!-- Packets: Spring Boot ↔ Hub -->
+                        <circle r="5" class="pkt pkt--api">
+                            <animateMotion dur="1.6s" repeatCount="indefinite" begin="0s">
+                                <mpath href="#p-api" />
+                            </animateMotion>
+                        </circle>
+                        <circle r="4" class="pkt pkt--api" opacity="0.55">
+                            <animateMotion dur="1.6s" repeatCount="indefinite" begin="0.8s" keyPoints="1;0"
+                                keyTimes="0;1" calcMode="linear">
+                                <mpath href="#p-api" />
+                            </animateMotion>
+                        </circle>
+
+                        <!-- Packets: Hub ↔ Web -->
+                        <circle r="4" class="pkt pkt--sync">
+                            <animateMotion dur="1.1s" repeatCount="indefinite" begin="0.2s">
+                                <mpath href="#p-web" />
+                            </animateMotion>
+                        </circle>
+                        <circle r="4" class="pkt pkt--sync">
+                            <animateMotion dur="1.1s" repeatCount="indefinite" begin="0.75s" keyPoints="1;0"
+                                keyTimes="0;1" calcMode="linear">
+                                <mpath href="#p-web" />
+                            </animateMotion>
+                        </circle>
+
+                        <!-- Packets: Hub ↔ Mobile -->
+                        <circle r="4" class="pkt pkt--sync">
+                            <animateMotion dur="1.1s" repeatCount="indefinite" begin="0s">
+                                <mpath href="#p-mob" />
+                            </animateMotion>
+                        </circle>
+                        <circle r="4" class="pkt pkt--sync">
+                            <animateMotion dur="1.1s" repeatCount="indefinite" begin="0.55s" keyPoints="1;0"
+                                keyTimes="0;1" calcMode="linear">
+                                <mpath href="#p-mob" />
+                            </animateMotion>
+                        </circle>
+
+                        <!-- Packet: Mobile → Cache (pre-fetch) -->
+                        <circle r="4" class="pkt pkt--cache">
+                            <animateMotion dur="2.2s" repeatCount="indefinite" begin="0.3s">
+                                <mpath href="#p-cache" />
+                            </animateMotion>
+                        </circle>
+
+                        <!-- Audio chunk packets: Spring Boot → Web App -->
+                        <rect width="9" height="6" rx="1.5" x="-4.5" y="-3" class="pkt pkt--audio">
+                            <animateMotion dur="1.8s" repeatCount="indefinite" begin="0s" rotate="auto">
+                                <mpath href="#pi-aw" />
+                            </animateMotion>
+                        </rect>
+                        <rect width="9" height="6" rx="1.5" x="-4.5" y="-3" class="pkt pkt--audio" opacity="0.6">
+                            <animateMotion dur="1.8s" repeatCount="indefinite" begin="0.9s" rotate="auto">
+                                <mpath href="#pi-aw" />
+                            </animateMotion>
+                        </rect>
+
+                        <!-- Audio chunk packets: Spring Boot → Mobile App -->
+                        <rect width="9" height="6" rx="1.5" x="-4.5" y="-3" class="pkt pkt--audio">
+                            <animateMotion dur="1.8s" repeatCount="indefinite" begin="0.3s" rotate="auto">
+                                <mpath href="#pi-am" />
+                            </animateMotion>
+                        </rect>
+                        <rect width="9" height="6" rx="1.5" x="-4.5" y="-3" class="pkt pkt--audio" opacity="0.6">
+                            <animateMotion dur="1.8s" repeatCount="indefinite" begin="1.2s" rotate="auto">
+                                <mpath href="#pi-am" />
+                            </animateMotion>
+                        </rect>
+
+                        <!-- Spring Boot node -->
+                        <rect x="190" y="15" width="120" height="36" rx="7" class="arch-node arch-node--api" />
+                        <text x="250" y="30" class="arch-label">Spring Boot</text>
+                        <text x="250" y="43" class="arch-sublabel">API · Auth · State</text>
+
+                        <!-- WebSocket Hub (central) -->
+                        <circle cx="250" cy="143" r="33" class="arch-node arch-node--hub" />
+                        <text x="250" y="140" class="arch-label">WebSocket</text>
+                        <text x="250" y="153" class="arch-sublabel">Realtime Hub</text>
+
+                        <!-- Web App -->
+                        <rect x="18" y="125" width="106" height="36" rx="7" class="arch-node arch-node--web" />
+                        <text x="71" y="140" class="arch-label">Web App</text>
+                        <text x="71" y="153" class="arch-sublabel">Angular PWA</text>
+
+                        <!-- Mobile App -->
+                        <rect x="376" y="125" width="106" height="36" rx="7" class="arch-node arch-node--mobile" />
+                        <text x="429" y="140" class="arch-label">Mobile App</text>
+                        <text x="429" y="153" class="arch-sublabel">Ionic · Capacitor</text>
+
+                        <!-- Local Cache -->
+                        <rect x="345" y="187" width="106" height="26" rx="6" class="arch-node arch-node--cache" />
+                        <text x="398" y="197" class="arch-label">Local Cache</text>
+                        <text x="398" y="209" class="arch-sublabel">&#64;cap/filesystem</text>
+
+                        <!-- Connection labels -->
+                        <text x="262" y="75" class="arch-conn-label">sync</text>
+                        <text x="170" y="136" class="arch-conn-label">real-time</text>
+                        <text x="330" y="136" class="arch-conn-label">real-time</text>
+                        <text x="440" y="176" class="arch-conn-label">pre-fetch</text>
+
+                        <!-- Audio path labels -->
+                        <text x="105" y="85" class="arch-conn-label" style="fill:#f97316;opacity:0.8">♪ mp3</text>
+                        <text x="395" y="85" class="arch-conn-label" style="fill:#f97316;opacity:0.8">♪ mp3</text>
+                    </svg>
+
+                    <div class="arch-features">
+                        <div class="arch-feature"><span class="arch-feature-dot" style="background:#4ade80"></span>{{
+                            'PROJECTS.STREAMING.FEAT1' | translate }}</div>
+                        <div class="arch-feature"><span class="arch-feature-dot" style="background:#818cf8"></span>{{
+                            'PROJECTS.STREAMING.FEAT2' | translate }}</div>
+                        <div class="arch-feature"><span class="arch-feature-dot" style="background:#e879f9"></span>{{
+                            'PROJECTS.STREAMING.FEAT3' | translate }}</div>
+                        <div class="arch-feature"><span class="arch-feature-dot" style="background:#f97316"></span>{{
+                            'PROJECTS.STREAMING.FEAT4' | translate }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

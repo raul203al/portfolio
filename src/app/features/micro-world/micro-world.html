@@ -1,0 +1,22 @@
+@if (!webglSupported()) {
+  <div class="webgl-fallback" role="alert">
+    <div class="fallback-content">
+      <p class="fallback-icon">⚠</p>
+      <h2>WebGL no disponible</h2>
+      <p>Tu navegador o dispositivo no soporta WebGL, necesario para renderizar el entorno 3D.</p>
+      <button class="btn-back btn-fallback" (click)="goBack()">← Volver al Dashboard</button>
+    </div>
+  </div>
+} @else {
+  <div class="scene-container active"
+       role="region"
+       aria-label="Entorno 3D interactivo de {{ tech }}">
+    <button class="btn-back"
+            (click)="goBack()"
+            aria-label="Volver al dashboard principal">← Volver al Dashboard</button>
+    <div #canvasWrapper
+         class="canvas-wrapper"
+         role="img"
+         [attr.aria-label]="'Visualización 3D del entorno de ' + tech"></div>
+  </div>
+}

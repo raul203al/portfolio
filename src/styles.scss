@@ -1,0 +1,303 @@
+/* --- VARIABLES GLOBALES (Paleta Kasane Teto / Cyber-Dashboard) --- */
+:root {
+    --bg-base: #0a0a0a;
+    --bento-bg: rgba(18, 18, 18, 0.55);
+    --surface-1: rgba(24, 24, 24, 0.4);
+    --surface-2: rgba(24, 24, 24, 0.5);
+    --world-bg-inner: #1e293b;
+    --teto-red: #D1193E;
+    --teto-red-glow: rgba(209, 25, 62, 0.4);
+    --teto-red-dim: rgba(209, 25, 62, 0.1);
+    --text-main: #FFFFFF;
+    --text-muted: #A0A0A0;
+    --border-color: #2a2a2a;
+    --border-active: rgba(209, 25, 62, 0.6);
+    --accent: #38bdf8;
+    --glass-blur: blur(12px);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --warning: #f59e0b;
+}
+
+[data-theme="light"] {
+    --bg-base: #f1f5f9;
+    --bento-bg: rgba(255, 255, 255, 0.7);
+    --surface-1: rgba(255, 255, 255, 0.6);
+    --surface-2: rgba(255, 255, 255, 0.5);
+    --border-color: rgba(0, 0, 0, 0.08);
+    --text-main: #0f172a;
+    --text-muted: #475569;
+    --border-active: rgba(209, 25, 62, 0.8);
+}
+
+/* Silence Suzuka — velocidad y frescura (tema claro) */
+[data-theme="suzuka"] {
+    --world-bg-inner: #c8ece4;
+    --bg-base: #FFFFFF;
+    --bento-bg: rgba(255, 247, 204, 0.82);
+    --surface-1: rgba(255, 255, 255, 0.7);
+    --surface-2: rgba(255, 255, 255, 0.6);
+    --teto-red: #00B388;
+    --teto-red-glow: rgba(0, 179, 136, 0.35);
+    --teto-red-dim: rgba(0, 179, 136, 0.1);
+    --border-color: rgba(0, 179, 136, 0.2);
+    --border-active: rgba(0, 179, 136, 0.75);
+    --accent: #FF7A33;
+    --text-main: #2C3338;
+    --text-muted: #5f6b75;
+}
+
+/* Admire Vega — elegancia estelar (tema oscuro) */
+[data-theme="vega"] {
+    --world-bg-inner: #1a1f40;
+    --bg-base: #0B132B;
+    --bento-bg: rgba(78, 84, 200, 0.1);
+    --surface-1: rgba(78, 84, 200, 0.08);
+    --surface-2: rgba(78, 84, 200, 0.12);
+    --teto-red: #4E54C8;
+    --teto-red-glow: rgba(78, 84, 200, 0.4);
+    --teto-red-dim: rgba(78, 84, 200, 0.12);
+    --border-color: rgba(78, 84, 200, 0.22);
+    --border-active: rgba(78, 84, 200, 0.75);
+    --accent: #F6D365;
+    --text-main: #F8FAFC;
+    --text-muted: #8F94FB;
+}
+
+/* Manhattan Cafe — acogedor y misterioso (tema oscuro cálido) */
+[data-theme="manhattan"] {
+    --world-bg-inner: #2c1d17;
+    --bg-base: #1C1917;
+    --bento-bg: rgba(62, 39, 35, 0.55);
+    --surface-1: rgba(62, 39, 35, 0.45);
+    --surface-2: rgba(62, 39, 35, 0.55);
+    --teto-red: #FBBF24;
+    --teto-red-glow: rgba(251, 191, 36, 0.4);
+    --teto-red-dim: rgba(251, 191, 36, 0.1);
+    --border-color: rgba(168, 162, 158, 0.14);
+    --border-active: rgba(251, 191, 36, 0.75);
+    --accent: #F5F5F4;
+    --text-main: #F5F5F4;
+    --text-muted: #A8A29E;
+}
+
+/* --- TRANSICIÓN DE TEMA --- */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+    transition:
+        background-color 0.45s ease,
+        background      0.45s ease,
+        border-color    0.45s ease,
+        color           0.45s ease,
+        box-shadow      0.45s ease,
+        fill            0.45s ease !important;
+}
+
+/* --- ESTILOS BASE --- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-base); }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--teto-red); }
+
+body {
+    background-color: var(--bg-base);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    perspective: 1000px;
+    transition: background-color 0.5s ease;
+}
+
+h1, h2, h3, h4, .section-title {
+    font-family: 'Rajdhani', sans-serif;
+    text-transform: uppercase;
+}
+
+/* --- ANIMACIONES GLOBALES --- */
+@keyframes pixel-glitch {
+    0% { opacity: 0; clip-path: inset(50% 0 50% 0); filter: brightness(2); }
+    20% { clip-path: inset(10% 0 85% 0); opacity: 1; }
+    50% { clip-path: inset(60% 0 5% 0); }
+    100% { opacity: 1; clip-path: inset(0 0 0 0); filter: brightness(1); visibility: visible; }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-4px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes pulse-red {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(209, 25, 62, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(209, 25, 62, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(209, 25, 62, 0); }
+}
+
+@keyframes blink-grey {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; box-shadow: 0 0 5px #777; }
+}
+
+/* --- CONFIGURACIONES DE ENTRADA (IDE) --- */
+.ide-window {
+    position: fixed;
+    background: #111;
+    border: 1px solid #444;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.9);
+    z-index: 2000;
+    width: 340px;
+    pointer-events: none;
+    font-family: 'JetBrains Mono', monospace;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(20px);
+
+    &.type-ts { border-color: #3178c6; .ide-header { background: #101d30; color: #3178c6; } }
+    &.type-java { border-color: #e76f00; .ide-header { background: #302010; color: #e76f00; } }
+    &.type-sql { border-color: var(--teto-red); .ide-header { background: #301015; color: var(--teto-red); } }
+    &.type-html { border-color: #e34f26; .ide-header { background: #301810; color: #e34f26; } }
+    &.type-kt { border-color: #7f52ff; .ide-header { background: #1a1030; color: #7f52ff; } }
+}
+
+.ide-header { 
+    height: 24px; 
+    display: flex; 
+    align-items: center; 
+    padding: 0 10px; 
+    gap: 6px; 
+    font-size: 9px; 
+    font-weight: bold; 
+}
+
+.ide-dot { 
+    width: 7px; 
+    height: 7px; 
+    border-radius: 50%; 
+    background: #333; 
+}
+
+.ide-body { 
+    padding: 15px; 
+    font-size: 10px; 
+    border-top: 1px solid #1a1a1a; 
+    white-space: pre-wrap; 
+    color: #fff; 
+}
+
+/* Circular ripples from icon center */
+.icon-ripple {
+    position: fixed;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1.5px solid var(--rc, var(--teto-red));
+    transform: translate(-50%, -50%) scale(0.3);
+    pointer-events: none;
+    z-index: 9998;
+    animation: ripple-expand 0.85s ease-out forwards;
+}
+
+@keyframes ripple-expand {
+    0%   { transform: translate(-50%, -50%) scale(0.3); opacity: 1; }
+    50%  { opacity: 0.6; }
+    100% { transform: translate(-50%, -50%) scale(4.2); opacity: 0; }
+}
+
+/* Tech pill particles */
+.tech-particle {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    animation: particle-fly 0.75s ease-out forwards;
+}
+
+@keyframes particle-fly {
+    0%   { transform: translate(-50%, -50%) translate(0, 0)                   scale(1);   opacity: 1; }
+    100% { transform: translate(-50%, -50%) translate(var(--tx), var(--ty))   scale(0);   opacity: 0; }
+}
+
+/* Blast doors */
+.blast-door {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: 50vh;
+    z-index: 9998;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        -45deg,
+        #F5C400 0px, #F5C400 30px,
+        #111111 30px, #111111 60px
+    );
+}
+.blast-door-top {
+    top: 0;
+    border-bottom: 5px solid #888;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.9);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 0.6rem;
+}
+.blast-door-bot {
+    top: 50vh;
+    border-top: 5px solid #888;
+    box-shadow: 0 -8px 30px rgba(0,0,0,0.9);
+}
+.blast-label {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #111;
+    background: rgba(245,196,0,0.6);
+    border: 2px solid #111;
+    padding: 0.25rem 1rem;
+    border-radius: 3px;
+    animation: blink-label 0.7s step-start infinite;
+}
+@keyframes blink-label {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+}
+
+/* Screen crack overlay */
+.screen-crack {
+    position: fixed;
+    inset: 0;
+    z-index: 9996;
+    pointer-events: none;
+    background: rgba(0,0,0,0.25);
+
+    svg {
+        width: 100%;
+        height: 100%;
+        filter: drop-shadow(0 0 3px rgba(255,255,255,0.9));
+    }
+}
+
+/* View Transitions API */
+@keyframes vt-slide-in {
+    from { opacity: 0; transform: translateX(24px); }
+    to   { opacity: 1; transform: translateX(0);    }
+}
+@keyframes vt-slide-out {
+    from { opacity: 1; transform: translateX(0);     }
+    to   { opacity: 0; transform: translateX(-24px); }
+}
+
+::view-transition-new(root) {
+    animation: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) both vt-slide-in;
+}
+::view-transition-old(root) {
+    animation: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) both vt-slide-out;
+}
