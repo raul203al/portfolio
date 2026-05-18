@@ -10,11 +10,14 @@ COPY . .
 # no tiene parseo extra de parámetros, añadir --configuration=production puede fallar.
 RUN npm run build
 
-FROM nginx:alpine
-COPY --from=builder /app/dist/portfolio/browser /usr/share/nginx/html
+FROM node:20-alpine
+WORKDIR /app
 
-# Copiamos la configuración personalizada de Nginx
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Copiamos la carpeta dist completa (browser y server) generada por el builder
+COPY --from=builder /app/dist/portfolio ./dist/portfolio
 
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# Exponemos el puerto 4000 que utiliza el servidor Express SSR
+EXPOSE 4000
+
+# Iniciamos el servidor de Node.js
+CMD ["node", "dist/portfolio/server/server.mjs"]
